@@ -1,0 +1,36 @@
+sparse-small:
+  glass:
+    docker-tag: neurips23-sparse-glass
+    module: neurips23.sparse.glass.glass
+    constructor: Glass
+    base-args: ["@metric"]
+    run-groups:
+      base:
+        args: |
+          [{"L": 32, "R": 100}]
+        query-args: |
+          [{"ef": 20}, {"ef": 40}, {"ef": 60}, {"ef": 100}, {"ef": 200}, {"ef": 300}]
+sparse-1M:
+  glass:
+    docker-tag: neurips23-sparse-glass
+    module: neurips23.sparse.glass.glass
+    constructor: Glass
+    base-args: ["@metric"]
+    run-groups:
+      base:
+        args: |
+          [{"L": 32, "R": 100}]
+        query-args: |
+          [{"ef": 20}]
+sparse-full:
+  glass:
+    docker-tag: neurips23-sparse-glass
+    module: neurips23.sparse.glass.glass
+    constructor: Glass
+    base-args: ["@metric"]
+    run-groups:
+      base:
+        args: |
+          [{"L": 32, "R": 100}]
+        query-args: |
+          [{"ef": 20}]
