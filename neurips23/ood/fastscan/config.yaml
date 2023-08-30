@@ -1,0 +1,32 @@
+random-xs:
+    fastscan: 
+      docker-tag: neurips23-ood-fastscan
+      module: neurips23.ood.fastscan.fastscan
+      constructor: Fastscan
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: |
+            [{"nlist":2000}]
+          query-args: |
+            [{"nprobe": 20},
+             {"nprobe": 50},
+             {"nprobe": 100},
+             {"nprobe": 200}]
+text2image-10M:
+    fastscan: 
+      docker-tag: neurips23-ood-fastscan
+      module: neurips23.ood.fastscan.fastscan
+      constructor: Fastscan
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: |
+            [{"nlist": 5001}]
+          query-args: |
+            [{"nprobe": 20},
+             {"nprobe": 50},
+             {"nprobe": 100},
+             {"nprobe": 200},
+             {"nprobe": 400}]
+

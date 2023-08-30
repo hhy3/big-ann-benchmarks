@@ -12,6 +12,7 @@ class Linscan(BaseANN):
         self.name = "linscancpp"
         self._index = linscancpp.Index()
         self._budget = 0.0
+        self.drop_ratio = index_params['drop_ratio']
         print("Linscan index initialized: " + str(self._index))
 
     def fit(self, dataset): # e.g. dataset = "sparse-small"
@@ -20,7 +21,7 @@ class Linscan(BaseANN):
         assert self.ds.data_type() == "sparse"
 
         print("start add")
-        self._index.add(self.ds.get_dataset_fn())
+        self._index.add(self.ds.get_dataset_fn(), self.drop_ratio)
         print("done add")
 
         print("Index status: " + str(self._index))
@@ -30,22 +31,13 @@ class Linscan(BaseANN):
         return None
 
     def set_query_arguments(self, query_args):
-        self._budget = query_args["budget"] / 1000.0
+        self._budget = query_args["budget"]
 
     def query(self, X, k):
         """Carry out a batch query for k-NN of query set X."""
         nq = X.shape[0]
-
-        # prepare the queries as a list of dicts
-        self.queries = []
-        for i in range(nq):
-            qc = X.getrow(i)
-            q = dict(zip(qc.indices, qc.data))
-            self.queries.append(q)
-
-        res = self._index.search_par(self.queries, k, self._budget)
-        self.I = np.array(res, dtype='int32').reshape(-1, k)
+        self.res = self._index.search_batch(nq, X.indptr, X.indices, X.data, k, self._budget).reshape(-1, k)
 
     def get_results(self):
-        return self.I
+        return self.res
 

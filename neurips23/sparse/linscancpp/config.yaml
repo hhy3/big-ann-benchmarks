@@ -31,7 +31,7 @@ sparse-full:
       run-groups:
         base:
           args: |
-            [{}]
+            [{"drop_ratio" : 0.15}]
           query-args: |
-            [{"budget":5},{"budget":15},{"budget":35},{"budget":50},{"budget":52.5},{"budget":55},{"budget":57.5},{"budget":60},{"budget":90},{"budget":500}]
+            [{"budget":0.15}]
           

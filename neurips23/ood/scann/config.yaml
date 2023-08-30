@@ -1,0 +1,33 @@
+random-xs:
+    scann: 
+      docker-tag: neurips23-ood-scann
+      module: neurips23.ood.scann.scann
+      constructor: Scann
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: |
+            [{"nlist":2000}]
+          query-args: |
+            [{"nprobe": 20},
+             {"nprobe": 50},
+             {"nprobe": 100},
+             {"nprobe": 200}]
+text2image-10M:
+    scann: 
+      docker-tag: neurips23-ood-scann
+      module: neurips23.ood.scann.scann
+      constructor: Scann
+      base-args: ["@metric"]
+      run-groups:
+        base:
+          args: |
+            [{"nlist": 5000}]
+          query-args: |
+            [{"nprobe": 20},
+             {"nprobe": 50},
+             {"nprobe": 100},
+             {"nprobe": 200},
+             {"nprobe": 400}]
+
+
