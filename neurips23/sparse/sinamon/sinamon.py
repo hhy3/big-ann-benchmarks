@@ -9,14 +9,14 @@ import linscancpp
 class Sinamon(BaseANN):
     def __init__(self, metric, index_params):
         assert metric == "ip"
-        self.name = "linscan"
+        self.name = "sinamon"
         self._budget = 0.0
 
     def fit(self, dataset): # e.g. dataset = "sparse-small"
 
         self.ds = DATASETS[dataset]()
         assert self.ds.data_type() == "sparse"
-        self._index = linscancpp.Sinamon(1000000, 512)
+        self._index = linscancpp.Sinamon(1000000, 128)
 
         N_VEC_LIMIT = 100000 # batch size
         it = self.ds.get_dataset_iterator(N_VEC_LIMIT)

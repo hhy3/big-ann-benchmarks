@@ -9,7 +9,7 @@ import linscancpp
 class Linscan(BaseANN):
     def __init__(self, metric, index_params):
         assert metric == "ip"
-        self.name = "linscan"
+        self.name = "linscancpp"
         self._index = linscancpp.Index()
         self._budget = 0.0
         print("Linscan index initialized: " + str(self._index))
@@ -19,12 +19,9 @@ class Linscan(BaseANN):
         self.ds = DATASETS[dataset]()
         assert self.ds.data_type() == "sparse"
 
-        N_VEC_LIMIT = 100000 # batch size
-        it = self.ds.get_dataset_iterator(N_VEC_LIMIT)
-        for d in it:
-            for i in range(d.shape[0]):
-                d1 = d.getrow(i)
-                self._index.insert(dict(zip(d1.indices, d1.data)))
+        print("start add")
+        self._index.add(self.ds.get_dataset_fn())
+        print("done add")
 
         print("Index status: " + str(self._index))
 
